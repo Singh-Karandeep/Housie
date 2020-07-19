@@ -1,0 +1,92 @@
+body {
+    font-family: 'BioRhyme', serif;
+    background-image: url('/img/wallpaper.jpg');
+}
+
+.my_container {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.my_title {
+    text-align: center;
+    margin-top: 10px;
+    color: rgb(255, 255, 254);
+    font-size: 50px;
+}
+
+#my_table {
+    margin-top: 10px;
+    table-layout: fixed;
+    opacity: 0.95;
+}
+
+tr {
+    height: 85px;
+}
+
+td {
+    padding: 0px !important;
+    text-align: center;
+    font-size: 55px;
+    text-shadow: 1px 1px 2px black, 0 0 32px blue, 0 0 52px darkblue;
+    animation: blinker 0.6s linear infinite;
+    color: #25dde6;
+    animation: blinker-two 1.4s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes blinker-two {
+    100% {
+        opacity: 0;
+    }
+}
+
+#generated_number {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+    font-size: 45px;
+    color: rgb(255, 255, 255);
+    width: 75px;
+    height: 65px;
+    border-radius: 25%;
+    text-align: center;
+    background: #343a40;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
+}
+
+.square_button {
+    vertical-align: middle;
+    font-size: 32px;
+}
+
+.button-right {
+    float: right;
+}
+
+.divider {
+    margin-left: 36%;
+    border-width: 2px;
+    border-color: #2072ec;
+}
+
+#ticket_count {
+    width: 100%;
+}
+
+.tooltip-inner {
+    background-color: #e40505 !important;
+}
+
+#ticket_result_msg {
+    font-size: 20px;
+    color: #007aff;
+    margin-top: 16px;
+}
