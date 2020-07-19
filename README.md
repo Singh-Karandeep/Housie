@@ -1,5 +1,5 @@
 # Housie
-## An Interactive Web Application to Generate Housie Tickets and Draw Numbers
+## A Python Application to Generate Housie Tickets
 
 ### Requirements
 ```shell script
@@ -13,5 +13,5 @@ python -m pip install -r requirements.txt
 
 ### Run
 ```shell script
-python app.py
+python ticket_generator.py -h
 ```

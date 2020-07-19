@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import datetime
 from random import randint
 
@@ -21,11 +22,18 @@ class HousieTicketGenerator:
 		self.ticket_folder_name = 'HousieTickets'
 		self.ticket_file_name = os.path.join(self.ticket_folder_name, 'Housie_Tickets_{}.xls'.format(datetime.now().strftime("%d_%m_%Y__%H_%M_%S")))
 		self.housie_sheet = self.workbook.add_sheet('Housie_Tickets')
-		self.user_names = []
+		self.user_names = self.read_names()
 		self.make_ticket_dir()
 
 	def make_ticket_dir(self):
 		os.makedirs(self.ticket_folder_name, exist_ok=True)
+
+	@staticmethod
+	def read_names():
+		with open('names.txt', 'r') as f:
+			data = f.readlines()
+		users = [name.strip() for name in data]
+		return users
 
 	def get_five_random_row_indexes(self, last_row=False):
 		tmp = []
@@ -113,16 +121,20 @@ class HousieTicketGenerator:
 		except ValueError:
 			return False
 
-	def parse_args(self, args):
-		if len(args):
+	def parse_args(self):
+		if '-h' in sys.argv or '--help' in sys.argv:
+			self.print_help()
+			exit()
+		args = sys.argv
+		if len(args) > 1:
 			self.user_names.clear()
-			if len(args) == 1:
-				arg = args[0]
+			if len(args) == 2:
+				arg = args[1]
 				is_digit = self.check_for_int(arg)
 				if is_digit:
 					self.user_names = list(range(1, int(arg) + 1))
 					return
-			for arg in args:
+			for arg in args[1:]:
 				self.user_names.append(arg)
 
 	@staticmethod
@@ -183,7 +195,7 @@ class HousieTicketGenerator:
 			last_row = False
 			if index == 2:
 				last_row = True
-
+				
 			if row_index == 0:
 				self.first_row = self.populate_row(last_row=last_row)
 			elif row_index == 1:
@@ -200,8 +212,8 @@ class HousieTicketGenerator:
 		self.column_indexes_per_ticket.clear()
 		self.row_status = [False, False, False]
 
-	def main(self, args):
-		self.parse_args(args)
+	def main(self):
+		self.parse_args()
 		if self.user_names:
 			print('Generating Tickets for : {}\n'.format(self.user_names))
 			for user_name in self.user_names:
@@ -211,7 +223,10 @@ class HousieTicketGenerator:
 					self.write_to_excel(user_name)
 					self.re_init()
 			self.workbook.save(self.ticket_file_name)
-			return True, self.ticket_file_name.split(os.sep)[1]
+			print('Tickets Generated : {}'.format(self.ticket_file_name))
 		else:
 			print('No Valid User Names were found...!!!')
-		return False, None
+
+
+if __name__ == '__main__':
+	HousieTicketGenerator().main()

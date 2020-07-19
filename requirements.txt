@@ -1,3 +1,2 @@
-Flask_Cors
-Flask
 xlwt
+Flask
